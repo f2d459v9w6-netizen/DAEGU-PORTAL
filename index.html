@@ -7,7 +7,6 @@
   <style>
     :root {
       --primary-color: #006633;
-      --bg-gray: #f2f3f5;
       --border-color: #cccccc;
       --header-bg: #f8f9fa;
     }
@@ -39,7 +38,7 @@
       position: relative;
     }
 
-    /* 상단 통합 헤더 */
+    /* 상단 공통 헤더 */
     .top-bar {
       display: flex;
       justify-content: space-between;
@@ -56,6 +55,7 @@
       color: var(--primary-color);
       font-weight: bold;
       font-size: 16px;
+      cursor: pointer;
     }
 
     .brand-logo {
@@ -79,91 +79,7 @@
       cursor: pointer;
     }
 
-    /* 화면 전환을 위한 서브 페이지 스타일 */
-    .page {
-      display: none;
-      flex-direction: column;
-      flex: 1;
-    }
-
-    .page.active {
-      display: flex;
-    }
-
-    /* ---------------- PAGE 1: 메인 포털 ---------------- */
-    .profile-card {
-      padding: 16px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      border-bottom: 1px solid #f0f0f0;
-    }
-
-    .user-name {
-      font-size: 20px;
-      font-weight: bold;
-      color: #111;
-    }
-
-    .user-dept {
-      font-size: 13px;
-      color: var(--primary-color);
-      margin-top: 4px;
-    }
-
-    .id-btn {
-      border: 1px solid #a3d9b1;
-      background-color: #f2f9f4;
-      color: var(--primary-color);
-      padding: 6px 12px;
-      border-radius: 8px;
-      font-size: 11px;
-      text-align: center;
-      cursor: pointer;
-    }
-
-    .section-title {
-      background-color: var(--primary-color);
-      color: white;
-      padding: 10px 14px;
-      font-size: 14px;
-      font-weight: bold;
-      margin-top: 10px;
-    }
-
-    .grid-container {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1px;
-      background-color: #eee;
-      border-bottom: 1px solid #eee;
-    }
-
-    .grid-item {
-      background-color: #fff;
-      padding: 16px 8px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 8px;
-      font-size: 12px;
-      color: #333;
-      cursor: pointer;
-      text-decoration: none;
-    }
-
-    .grid-icon {
-      width: 44px;
-      height: 44px;
-      border-radius: 50%;
-      background-color: #f4f6f8;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 20px;
-    }
-
-    /* ---------------- PAGE 2: 성적 조회 (영상 00:08 화면) ---------------- */
+    /* 서브 헤더 */
     .sub-header {
       background-color: #ffffff;
       padding: 10px 14px;
@@ -176,9 +92,6 @@
     .page-path {
       font-size: 12px;
       color: #666;
-      display: flex;
-      align-items: center;
-      gap: 4px;
     }
 
     .page-title-text {
@@ -188,6 +101,7 @@
       margin: 10px 14px 6px;
     }
 
+    /* 인적사항 테이블 및 증명사진 */
     .info-table {
       width: calc(100% - 28px);
       margin: 0 14px 14px;
@@ -205,29 +119,24 @@
       background-color: #f5f5f5;
       font-weight: normal;
       color: #333;
-      width: 25%;
+      width: 28%;
     }
 
     .photo-area {
-      width: 95px;
+      width: 110px;
+      padding: 2px !important;
       text-align: center;
       vertical-align: middle;
-      background-color: #fafafa;
     }
 
-    .profile-img-placeholder {
-      width: 85px;
-      height: 105px;
-      background-color: #dcdcdc;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin: 0 auto;
-      color: #666;
-      font-size: 11px;
+    .profile-img {
+      width: 100%;
+      height: 135px;
+      object-fit: cover;
+      display: block;
     }
 
-    /* 탭 영역 */
+    /* 탭 메뉴 */
     .tab-group {
       display: flex;
       margin: 0 14px;
@@ -238,7 +147,7 @@
       padding: 8px 16px;
       font-size: 13px;
       font-weight: bold;
-      background-color: #e9ecef;
+      background-color: #f2f3f5;
       color: #555;
       border: 1px solid var(--border-color);
       border-bottom: none;
@@ -263,37 +172,46 @@
       font-weight: bold;
     }
 
-    /* 성적 표 영역 (가로 스크롤 가능) */
+    /* 탭 컨텐츠 영역 */
+    .tab-content {
+      display: none;
+      padding: 0 14px 20px;
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+
+    /* 성적표 가로 스크롤 테이블 */
     .table-scroll-wrapper {
       overflow-x: auto;
-      padding: 0 14px 20px;
     }
 
     .grade-table {
       width: 100%;
       border-collapse: collapse;
-      font-size: 11px;
+      font-size: 12px;
       text-align: center;
       white-space: nowrap;
     }
 
     .grade-table th, .grade-table td {
       border: 1px solid var(--border-color);
-      padding: 6px 8px;
+      padding: 7px 8px;
     }
 
     .grade-table th {
-      background-color: #f0f4f1;
-      color: #222;
+      background-color: #ffffff;
+      color: #000;
       font-weight: bold;
     }
 
-    .highlight-cell {
-      font-weight: bold;
+    .grade-table td {
+      background-color: #c5e1a5; /* 이미지 속 연두색 배경 */
       color: #000;
     }
 
-    /* 하단 종합정보서비스 */
+    /* 하단 바 */
     .footer-bar {
       margin-top: auto;
       background-color: var(--primary-color);
@@ -311,117 +229,85 @@
 
 <div class="app-container">
 
-  <!-- 상단 공통 헤더 -->
+  <!-- 상단 헤더 -->
   <div class="top-bar">
-    <div class="brand" onclick="showPage('portalPage')" style="cursor:pointer;">
+    <div class="brand">
       <span class="brand-logo">DU</span>
       <span>대구대학교</span>
     </div>
     <div class="top-icons">
-      <span onclick="showPage('portalPage')">🏠</span>
+      <span>🏠</span>
       <span>🔔</span>
-      <span onclick="showPage('gradePage')">☰</span>
+      <span>☰</span>
     </div>
   </div>
 
-  <!-- PAGE 1: 메인 스마트 서비스 화면 -->
-  <div id="portalPage" class="page active">
-    <div class="profile-card">
-      <div>
-        <div class="user-name">김우람</div>
-        <div class="user-dept">간호대학 간호학과</div>
-      </div>
-      <div class="id-btn">
-        <div>📱</div>
-        <div>신분증</div>
-      </div>
+  <div class="sub-header">
+    <div class="page-path">
+      <span>학적·졸업</span> &gt; <span>학적관리</span> &gt; <b>성적조회</b>
     </div>
-
-    <div class="section-title">스마트서비스</div>
-
-    <div class="grid-container">
-      <div class="grid-item">
-        <div class="grid-icon">🐯</div>
-        <div>Tigers+</div>
-      </div>
-      <div class="grid-item">
-        <div class="grid-icon">📚</div>
-        <div>스마트LMS</div>
-      </div>
-      <div class="grid-item">
-        <div class="grid-icon">📄</div>
-        <div>비교과시스템</div>
-      </div>
-      <div class="grid-item">
-        <div class="grid-icon">💬</div>
-        <div>학생상담</div>
-      </div>
-      <div class="grid-item">
-        <div class="grid-icon">📞</div>
-        <div>전화번호안내</div>
-      </div>
-      <!-- 수강신청/성적조회 클릭 시 페이지 이동 -->
-      <div class="grid-item" onclick="showPage('gradePage')">
-        <div class="grid-icon">✏️</div>
-        <div>성적조회 이동</div>
-      </div>
-    </div>
+    <span style="font-size: 11px; color:#666;">★ 즐겨찾기</span>
   </div>
 
-  <!-- PAGE 2: 성적 조회 화면 (요청대로 3.92 수정 반영) -->
-  <div id="gradePage" class="page">
-    <div class="sub-header">
-      <div class="page-path">
-        <span>학적·졸업</span> &gt; <span>학적관리</span> &gt; <b>성적조회</b>
-      </div>
-      <span style="font-size: 11px; color:#666;">★ 즐겨찾기</span>
-    </div>
+  <div class="page-title-text">성적조회</div>
 
-    <div class="page-title-text">성적조회</div>
+  <!-- 인적사항 테이블 (사진 포함) -->
+  <table class="info-table">
+    <tr>
+      <th>학번</th>
+      <td>22607914</td>
+      <td rowspan="5" class="photo-area">
+        <!-- 1. 증명사진 출력 -->
+        <img class="profile-img" src="https://i.ibb.co/L5QG0Wz/profile.jpg" alt="증명사진" onerror="this.src='https://via.placeholder.com/110x135?text=Photo'">
+      </td>
+    </tr>
+    <tr>
+      <th>성명</th>
+      <td>김우람</td>
+    </tr>
+    <tr>
+      <th>대학</th>
+      <td>간호대학</td>
+    </tr>
+    <tr>
+      <th>학년</th>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>주야</th>
+      <td>주간</td>
+    </tr>
+    <tr>
+      <th>학과(부)/전공</th>
+      <td colspan="2">간호학과</td>
+    </tr>
+  </table>
 
-    <!-- 인적사항 테이블 -->
-    <table class="info-table">
-      <tr>
-        <th>학번</th>
-        <td>22607914</td>
-        <td rowspan="5" class="photo-area">
-          <div class="profile-img-placeholder">증명사진</div>
-        </td>
-      </tr>
-      <tr>
-        <th>성명</th>
-        <td>김우람</td>
-      </tr>
-      <tr>
-        <th>대학</th>
-        <td>간호대학</td>
-      </tr>
-      <tr>
-        <th>학년</th>
-        <td>1</td>
-      </tr>
-      <tr>
-        <th>학과</th>
-        <td>간호학과</td>
-      </tr>
-    </table>
+  <!-- 탭 메뉴 -->
+  <div class="tab-group">
+    <!-- 2. 성적일람표 탭 (클릭 가능) -->
+    <div id="tab1-btn" class="tab-item" onclick="switchTab('tab1')">성적일람표</div>
+    <!-- 3. 성적집계표 탭 (기본 활성화) -->
+    <div id="tab2-btn" class="tab-item active" onclick="switchTab('tab2')">성적집계표</div>
+  </div>
 
-    <div class="tab-group">
-      <div class="tab-item">성적일람표</div>
-      <div class="tab-item active">성적집계표</div>
-    </div>
+  <div class="radio-options">
+    <label><input type="radio" name="f_option" checked> F 포함</label>
+    <label><input type="radio" name="f_option"> F 미포함</label>
+  </div>
 
-    <div class="radio-options">
-      <label><input type="radio" name="f_option" checked> F 포함</label>
-      <label><input type="radio" name="f_option"> F 미포함</label>
-    </div>
+  <!-- 탭 1 컨텐츠: 성적일람표 (빈 화면) -->
+  <div id="tab1" class="tab-content">
+    <div style="min-height: 150px;"></div>
+  </div>
 
-    <!-- 성적 수치 영역 (가로 스크롤 가능) -->
+  <!-- 탭 2 컨텐츠: 성적집계표 (이미지 속 표 구성) -->
+  <div id="tab2" class="tab-content active">
     <div class="table-scroll-wrapper">
       <table class="grade-table">
         <thead>
           <tr>
-            <th rowspan="2">학기</th>
+            <th rowspan="2">합계</th>
             <th rowspan="2">평점평균</th>
             <th rowspan="2">실점평균</th>
             <th rowspan="2">부전공</th>
@@ -434,10 +320,9 @@
         </thead>
         <tbody>
           <tr>
-            <td>1</td>
-            <td class="highlight-cell">3.76</td>
-            <!-- ⭐ 실점평균 아래 값을 기존 90.35 대신 요청하신 3.92로 변경했습니다. ⭐ -->
-            <td class="highlight-cell" style="background-color: #fff9c4;">3.92</td>
+            <td>19</td>
+            <td>3.92</td>
+            <td>90.35</td>
             <td>0</td>
             <td>0</td>
             <td>0</td>
@@ -456,12 +341,18 @@
 </div>
 
 <script>
-  // 페이지 전환 함수
-  function showPage(pageId) {
-    document.querySelectorAll('.page').forEach(page => {
-      page.classList.remove('active');
-    });
-    document.getElementById(pageId).classList.add('active');
+  // 탭 전환 기능 함수
+  function switchTab(tabId) {
+    document.querySelectorAll('.tab-item').forEach(btn => btn.classList.remove('active'));
+    document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+
+    if (tabId === 'tab1') {
+      document.getElementById('tab1-btn').classList.add('active');
+      document.getElementById('tab1').classList.add('active');
+    } else {
+      document.getElementById('tab2-btn').classList.add('active');
+      document.getElementById('tab2').classList.add('active');
+    }
   }
 </script>
 
